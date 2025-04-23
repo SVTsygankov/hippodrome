@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <!-- Определяем путь к логам -->
+        <Property name="log-path">logs</Property>
+        <!-- Формат сообщений лога -->
+        <Property name="log-pattern">[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5level %c{1} %msg%n</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Аппендер RollingFile для записи логов в файл -->
+        <RollingFile name="RollingFile" fileName="${log-path}/hippodrome.log"
+                     filePattern="${log-path}/hippodrome.%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${log-pattern}" />
+            <Policies>
+                <!-- Ротация файла каждый день -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+            <DefaultRolloverStrategy>
+                <!-- Удаление файлов старше 7 дней -->
+                <Delete basePath="${log-path}" maxDepth="1">
+                    <IfFileName glob="hippodrome.*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!-- Корневой логгер -->
+        <Root level="debug">
+            <AppenderRef ref="RollingFile" />
+        </Root>
+    </Loggers>
+</Configuration>
