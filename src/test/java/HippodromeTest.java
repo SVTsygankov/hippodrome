@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -47,6 +48,17 @@ public class HippodromeTest {
         hippodrome.move();
         // Проверяем, что метод move был вызван у каждой мокнутой лошади
         horses.forEach(horse -> verify(horse, times(1)).move());
+    }
+
+    @Test
+    void checkGetWinner() {
+        var horse1 = new Horse("Name1", 2.9, 4.0);
+        var horse2 = new Horse("Name2", 2.9, 5.0);
+        var horse3 = new Horse("Name3", 2.9, 3.0);
+        var horse4 = new Horse("Name4", 2.9, 3.9999999);
+        var hippodrome = new Hippodrome((List.of(horse1, horse2, horse3, horse4)));
+
+        assertSame(horse2, hippodrome.getWinner());
     }
 
     static Stream<Arguments> getArgumentForConstructorTest () {
