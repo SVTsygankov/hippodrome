@@ -26,7 +26,7 @@ class HorseTest {
     void throwExceptionIfNameIsNull() {
         var exception = assertThrows(IllegalArgumentException.class,
                 () -> new Horse(null, DUMMYDOUBLE));
-        assertEquals(exception.getMessage(), "Name cannot be null.");
+        assertEquals("Name cannot be null.", exception.getMessage());
 //        assertThat(exception.getMessage()).isEqualTo("Name cannot be null."); //С использованием assertj
     }
 
@@ -38,7 +38,7 @@ class HorseTest {
     void throwExceptionIfNameIsEmpty1 (String name) {
         var exception = assertThrows(IllegalArgumentException.class,
                 () -> new Horse(name, DUMMYDOUBLE));
-        assertEquals(exception.getMessage(), "Name cannot be blank.");
+        assertEquals("Name cannot be blank.", exception.getMessage());
     }
 
 
@@ -47,7 +47,7 @@ class HorseTest {
     void throwExceptionIfNameIsEmpty(String name) {
         var exception = assertThrows(IllegalArgumentException.class,
                 () -> new Horse(name, DUMMYDOUBLE));
-        assertEquals(exception.getMessage(), "Name cannot be blank.");
+        assertEquals("Name cannot be blank.", exception.getMessage());
     }
 
     @ParameterizedTest(name = "{arguments} test")
@@ -55,27 +55,27 @@ class HorseTest {
     void throwExceptionIfSpeedOrDistanceIsNegative( double speed, double distance, String message) {
         var exception = assertThrows(IllegalArgumentException.class,
                 () -> new Horse("dummy", speed, distance));
-        assertEquals(exception.getMessage(), message);
+        assertEquals(message, exception.getMessage());
     }
 
     @Test
     void checkGetNameMethod() {
         var horse = new Horse(DUMMYNAME, DUMMYDOUBLE);
-        assertEquals(horse.getName(), DUMMYNAME);
+        assertEquals(DUMMYNAME, horse.getName());
     }
 
     @Test
     void checkGetSpeedMethod() {
         var horse = new Horse(DUMMYNAME, DUMMYDOUBLE);
-        assertEquals(horse.getSpeed(), DUMMYDOUBLE);
+        assertEquals(DUMMYDOUBLE, horse.getSpeed());
     }
 
     @Test
     void checkGetDistanceMethod () {
         var horse1 = new Horse(DUMMYNAME, DUMMYDOUBLE, DUMMYDOUBLE);
         var horse2 = new Horse(DUMMYNAME, DUMMYDOUBLE);
-        assertEquals(horse1.getDistance(), DUMMYDOUBLE);
-        assertEquals(horse2.getDistance(), ZERO);
+        assertEquals(DUMMYDOUBLE,horse1.getDistance());
+        assertEquals(ZERO, horse2.getDistance());
     }
 
     @ParameterizedTest

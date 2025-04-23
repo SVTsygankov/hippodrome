@@ -22,7 +22,7 @@ public class HippodromeTest {
     void constructorTest(List<Horse> horses, String message) {
         var exception = assertThrows(IllegalArgumentException.class,
                 () -> new Hippodrome(horses));
-        assertEquals(exception.getMessage(), message);
+        assertEquals(message, exception.getMessage());
     }
 
     @Test
