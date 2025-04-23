@@ -23,7 +23,7 @@ class HorseTest {
     private static final double MAX = 0.9;
 
     @Test
-    void throwExceptionIfFirstParamIsNull() {
+    void throwExceptionIfNameIsNull() {
         var exception = assertThrows(IllegalArgumentException.class,
                 () -> new Horse(null, DUMMYDOUBLE));
         assertEquals(exception.getMessage(), "Name cannot be null.");
@@ -35,7 +35,7 @@ class HorseTest {
             ""," ", "\t", "\n", "\r", "\f", "\u000B", "\u2000", "\u2001", "\u2002",
             "\u2003", "\u2004", "\u2005", "\u2006", "\u2008", "\u2009", "\u200A",
             "\u2028", "\u2029", "\u205F", "\u3000"})
-    void throwExceptionIfFirstParamIsEmpty1 (String name) {
+    void throwExceptionIfNameIsEmpty1 (String name) {
         var exception = assertThrows(IllegalArgumentException.class,
                 () -> new Horse(name, DUMMYDOUBLE));
         assertEquals(exception.getMessage(), "Name cannot be blank.");
@@ -43,16 +43,16 @@ class HorseTest {
 
 
     @ParameterizedTest
-    @MethodSource("getArgumentForEmptyTest")
-    void throwExceptionIfFirstParamIsEmpty(String name) {
+    @MethodSource("getArgumentForNameEmptyTest")
+    void throwExceptionIfNameIsEmpty(String name) {
         var exception = assertThrows(IllegalArgumentException.class,
                 () -> new Horse(name, DUMMYDOUBLE));
         assertEquals(exception.getMessage(), "Name cannot be blank.");
     }
 
     @ParameterizedTest(name = "{arguments} test")
-    @MethodSource("getArgumentFor2or3ParamIsNegativeTest")
-    void throwExceptionIf2or3ParamIsNegative( double speed, double distance, String message) {
+    @MethodSource("getArgumentForSpeedOrDistanceIsNegativeTest")
+    void throwExceptionIfSpeedOrDistanceIsNegative( double speed, double distance, String message) {
         var exception = assertThrows(IllegalArgumentException.class,
                 () -> new Horse("dummy", speed, distance));
         assertEquals(exception.getMessage(), message);
@@ -94,13 +94,13 @@ class HorseTest {
         }
     }
 
-    static Stream<Arguments> getArgumentFor2or3ParamIsNegativeTest() {
+    static Stream<Arguments> getArgumentForSpeedOrDistanceIsNegativeTest() {
         return Stream.of(
                 Arguments.of(NEGATIVEVALUE, DUMMYDOUBLE, "Speed cannot be negative."),
                        Arguments.of(DUMMYDOUBLE, NEGATIVEVALUE, "Distance cannot be negative."));
     }
 
-    static Stream<Arguments> getArgumentForEmptyTest() {
+    static Stream<Arguments> getArgumentForNameEmptyTest() {
         String[] whitespaceChars = {
                 " ", "\t", "\n", "\r", "\f", "\u000B", "\u2000", "\u2001", "\u2002",
                 "\u2003", "\u2004", "\u2005", "\u2006", "\u2008", "\u2009", "\u200A",
